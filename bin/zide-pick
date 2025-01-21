@@ -16,6 +16,7 @@ Options:
 
 Environment Variables:
   ZIDE_FILE_PICKER      File picker to use, needs to be declared in your \$PATH.
+  ZIDE_PICKER_ARGS      Arguments to send to the file picker on startup.
   ZIDE_USE_YAZI_CONFIG  By default (empty), will use the yazi.toml file in this
                         project when using yazi as your picker. The config file
                         in this project automatically puts yazi into a
@@ -91,4 +92,5 @@ if [[ "${picker}" == "yazi" && "${ZIDE_USE_YAZI_CONFIG}" != "false" ]]; then
   envs="${envs} YAZI_CONFIG_HOME=${yaziConfigDir}"
 fi
 
-env -S "${envs}" ${picker} ${working_dir}
+IFS=' ' read -r -a argsArr <<< "${ZIDE_PICKER_ARGS}"
+env -S "${envs}" ${picker} ${argsArr[@]} ${working_dir}

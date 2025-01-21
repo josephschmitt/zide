@@ -100,6 +100,14 @@ export NNN_OPENER="zide-edit"
 
 This makes sure that `nnn` will use zide to open your files when you select them.
 
+#### lf
+
+When using zide with `lf`, you'll probably want to start it in single column mode. You can achieve this by turning off the preview and setting the ratio to `1` using the `-command` flag as part of your picker startup.
+
+```sh
+export ZIDE_FILE_PICKER="lf -command 'set preview false' -command 'set ratios 1'"
+```
+
 ## How it works
 
 This project consists of 4 parts:
