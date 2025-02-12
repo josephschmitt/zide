@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+source "${ZIDE_DIR}/tmp/${ZIDE_SESSION_NAME}_env"
+
+read -r -d '' HELP_TEXT << EOF
+Usage: $(basename "$0") [OPTIONS] <path>...
+
+Parameters:
+  <path>                Path to open in the filepicker pane.
+
+Options:
+  -h, --help            Show this help message and exit.
+  -p, --picker          File picker to use. Available file pickers are listed in
+                        bin/lib. Setting this will override the ZIDE_FILE_PICKER
+                        env var.
+
+Description:
+  Changes the working directory of the picker to the passed in directory.
+EOF
+
+# Function to display the help text
+show_help() {
+  echo "$HELP_TEXT"
+}
+
+# Parse command-line options
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -h|--help)
+      show_help
+      exit 0
+      ;;
+    -*)
+      echo "Unknown option: $1"
+      echo "Use --help or -h for usage information."
+      exit 1
+      ;;
+    *)
+      # Stop processing options when a positional parameter is encountered
+      break
+      ;;
+  esac
+done
+
+# Read picker defaults from env var or hard-coded default if a flag not passed
+picker=${picker:-${ZIDE_FILE_PICKER:-"yazi"}}
+path="${@:-$(pwd)}"
+
+zellij action focus-previous-pane
+# zellij action focus-next-pane
+zellij action write 27 # send <Escape> key to enter NORMAL mode
+zellij action write 27 # send <Escape> key to enter NORMAL mode
+zellij action write-chars "g "
+zellij action write-chars "${path}"
+# zellij action write 13 # send <Space>
