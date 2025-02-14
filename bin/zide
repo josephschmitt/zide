@@ -101,7 +101,7 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-if [[ -z "${name}" && "${ZIDE_ALWAYS_NAME}" == "true" ]]; then
+if [[ -z "${name}" && "${ZIDE_ALWAYS_NAME:-false}" == "true" ]]; then
   name="__basename__"
 fi
 
