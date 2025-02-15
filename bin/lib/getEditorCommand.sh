@@ -15,6 +15,11 @@ declare -A commands=(
   ["hx_hsplit"]="hsplit"
   ["hx_vsplit"]="vsplit"
 
+  ["helix_cd"]="cd"
+  ["helix_open"]="open"
+  ["helix_hsplit"]="hsplit"
+  ["helix_vsplit"]="vsplit"
+
   ["kak_cd"]="cd"
   ["kak_open"]="edit"
   ["kak_hsplit"]="edit"
