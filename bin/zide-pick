@@ -88,18 +88,8 @@ fi
 
 envs="EDITOR='zide-edit'"
 if [[ "${picker}" == "yazi" && "${ZIDE_USE_YAZI_CONFIG}" != "false" ]]; then
-  yaziDefaultConfigs=(
-    "${ZIDE_DIR}/yazi/three-column:stacked"
-    "${ZIDE_DIR}/yazi/three-column:floating"
-    "${ZIDE_DIR}/yazi/three-column:tall"
-    "${ZIDE_DIR}/yazi/single-column"
-  )
-  yaziConfigDir="${ZIDE_USE_YAZI_CONFIG:-${yaziDefaultConfigs[*]}}"
-  
-  foundConfig=$(findLayoutConfig "${yaziConfigDir}" ${ZIDE_CURRENT_LAYOUT})
-  if [ -n "${foundConfig}" ]; then
-    envs="${envs} YAZI_CONFIG_HOME=${foundConfig}"
-  fi
+  yaziConfigDir="${ZIDE_USE_YAZI_CONFIG:-${ZIDE_DIR}/yazi}"
+  envs="${envs} YAZI_CONFIG_HOME=${yaziConfigDir}"
 fi
 
 if [[ "${picker}" == "lf" && "${ZIDE_USE_LF_CONFIG}" != "false" ]]; then
