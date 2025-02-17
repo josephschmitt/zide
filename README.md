@@ -160,7 +160,7 @@ show-hidden = true
 export ZIDE_USE_YAZI_CONFIG="$HOME/.config/yazi-custom"
 ```
 
-This will use that config when running in zide, but not when running `yazi` normally. If you want to retain the auto-layout logic, you'll have to add the `yazi/plugins/auto-layout.yazi` plugin to your config's `plugins/` directory, and then add `require("auto-layout")` to your `init.lua`.
+This will use that config when running in zide, but not when running `yazi` normally. If you want to retain the auto-layout logic, you'll have to add the [`yazi/plugins/auto-layout.yazi`](./yazi/plugins/auto-layout.yazi) plugin to your config's `plugins/` directory, and then add `require("auto-layout")` to your `init.lua`.
 
 ```lua
 -- ~/.config/yazi-custom/init.lua
