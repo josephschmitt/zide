@@ -12,7 +12,7 @@ The project was inspired by the [`yazelix`](https://github.com/luccahuguet/yazel
 1. Browse for files in any visual file picker of your choosing, and open any selected files or directories in your editor pane
 1. Open multiple files at once in your editor if your picker supports a multiselect UI
 1. When opening a directory, set that directory as the working directory in your editor automatically 
-1. Load different config files for `yazi` or `lf` based on the loaded layout
+1. Automatic resizing for `yazi` and `lf` to change the number of columns based on the width of the picker pane
 
 This project has been tested and works well with the following modal editors:
 - [Helix (`hx`)](https://helix-editor.com)
