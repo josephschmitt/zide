@@ -2,14 +2,11 @@
 # Ignore any custom layouts
 layouts/*.kdl
 # Track the built-in layouts in git
-!layouts/compact.kdl
-!layouts/compact_lazygit.kdl
 !layouts/default.kdl
 !layouts/default_lazygit.kdl
+!layouts/floating.kdl
 !layouts/stacked.kdl
 !layouts/stacked_lazygit.kdl
 !layouts/tall.kdl
 !layouts/tall_lazygit.kdl
-!layouts/wide.kdl
-!layouts/wide_lazygit.kdl
 tmp/

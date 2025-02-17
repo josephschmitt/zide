@@ -1,19 +1,20 @@
 layout {
-    tab {
+    tab hide_floating_panes=true {
         floating_panes {
+            filepicker name="picker" focus=true
             zide_rename
         }
-
-        pane stacked=true {
-            filepicker name="picker"
-            editor name="editor" expanded=true
-        }
+	    editor name="editor"
         compact_bar size=1
     }
 
     // TEMPLATES
     pane_template name="filepicker" {
         command "zide-pick"
+        x "10%"
+        y "15%"
+        width "80%"
+        height "60%"
     }
 
     pane_template name="editor" {
@@ -33,4 +34,8 @@ layout {
             plugin location="compact-bar"
         }
     }
+}
+
+env {
+    ZIDE_USE_FOCUS_PLUGIN "true"
 }

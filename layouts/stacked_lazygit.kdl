@@ -6,7 +6,7 @@ layout {
 
         pane stacked=true {
             filepicker name="picker"
-            editor expanded=true
+            editor name="editor" expanded=true
             lazygit
         }
         compact_bar size=1

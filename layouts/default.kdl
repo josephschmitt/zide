@@ -5,7 +5,7 @@ layout {
         }
         pane split_direction="vertical" {
             filepicker size=40 name="picker"
-            editor
+            editor name="editor"
         }
         compact_bar size=1
     }
@@ -15,7 +15,7 @@ layout {
             pane split_direction="vertical" {
                 filepicker size=40 name="picker"
                 pane split_direction="horizontal" {
-                    editor size="75%"
+                    editor name="editor" size="75%"
                     pane
                 }
             }
@@ -26,7 +26,7 @@ layout {
             pane split_direction="vertical" {
                 filepicker size=40 name="picker"
                 pane split_direction="horizontal" {
-                    editor size="50%"
+                    editor name="editor" size="50%"
                     pane split_direction="vertical" {
                         pane
                         pane
@@ -41,7 +41,7 @@ layout {
         tab exact_panes=4 {
             pane split_direction="vertical" {
                 filepicker size=40 name="picker"
-                editor
+                editor name="editor"
                 pane split_direction="horizontal" size=80 {
                     pane
                 }
@@ -52,7 +52,7 @@ layout {
         tab min_panes=5 {
             pane split_direction="vertical" {
                 filepicker size=40 name="picker"
-                editor
+                editor name="editor"
                 pane split_direction="horizontal" size=80 {
                     pane
                     pane

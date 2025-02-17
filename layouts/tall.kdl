@@ -6,7 +6,7 @@ layout {
 
         pane split_direction="horizontal" {
             filepicker size=15 name="picker"
-            editor
+            editor name="editor"
         }
         compact_bar size=1
     }
