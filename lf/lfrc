@@ -1,0 +1,12 @@
+cmd on-redraw %{{
+    if [ $lf_width -le 40 ]; then
+        lf -remote "send $id set preview false"
+        lf -remote "send $id set ratios 1"
+    elif [ $lf_width -le 80 ]; then
+        lf -remote "send $id set preview false"
+        lf -remote "send $id set ratios 1:1"
+    else
+        lf -remote "send $id set preview true"
+        lf -remote "send $id set ratios 1:1:2"
+    fi
+}}
