@@ -6,8 +6,6 @@
 #   Where <editor> is the name of your text editor (defaults to $EDITOR) and
 #   <command> is the command to perform (open, hsplit, vsplit).
 
-source "${ZIDE_DIR}/tmp/env"
-
 # Mapping of common editors and their commands
 declare -A commands=(
   ["hx_cd"]="cd"

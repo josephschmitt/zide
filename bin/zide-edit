@@ -62,8 +62,14 @@ for path in "${paths[@]}"; do
 done
 path=${escaped_paths[0]}
 
-# Focus editor pane, must be the next pane after yazi
-zellij action focus-next-pane
+# Focus editor pane
+# Uses zjpane plugin to focus the editor
+if [[ "${ZIDE_USE_FOCUS_PLUGIN:-false}" == "true" ]]; then
+  zellij pipe "zjpane::focus::editor"
+else
+  # Must be the next pane after the picker
+  zellij action focus-next-pane
+fi
 
 # If we're trying to open a single path and it's a directory, change the working dir to it in our
 # editor. This ensures any other commands in our editor (such as :open, :mv, etc) have the correct
