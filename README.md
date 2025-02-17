@@ -174,6 +174,7 @@ If you're using `lf` and want to use a custom config other than your default and
 ```env
 # ~/.config/custom-configs/lf/lfrc
 set hidden true
+# Some more config options here
 ```
 
 ```sh
