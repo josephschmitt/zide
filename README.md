@@ -86,6 +86,10 @@ By default starting `zide` will use a layout consisting of 2 vertical split of p
 
 If you add one more pane, you'll have the choice between two swap layouts: "compact" and "wide". The "compact" layout will set the new pane below the editor, while the "wide" layout will set it to the right. Adding a 4th pane will split these panes in half, vertically for "compact", and horizontally for "wide".
 
+### `floating`
+
+The `floating` layout sets the editor to occupy the full screen, and the picker is toggled on and off as a floating pane. Usage of this layout automatically sets the `ZIDE_USE_FOCUS_PLUGIN` env var to `true`, and therefore uses the [`zjpane`](https://github.com/FuriouZz/zjpane) plugin in order to directly focus the editor pane when the floating pane is open.
+
 #### `tall`
 
 The `tall` layout takes advantage of tall screens or windows and lays the panes out horizontally, with the picker occupying the top of the layout in a narrow view, and the editor below. Due to zide's new-found config switching, if you use `yazi` or `lf` as your file picker, this layout will automatically switch to a 3-pane view.
@@ -133,6 +137,7 @@ This project provides customization via the use of environment variables:
 
 1. `ZIDE_DEFAULT_LAYOUT`: Default layout. Available layouts can be found in the zide `layouts/` directory. Feel free to add some layouts of your own here (they're gitignore'd).
 1. `ZIDE_FILE_PICKER`: The file picker command to use, defaults to `yazi` if none is set.
+1. `ZIDE_USE_FOCUS_PLUGIN`: Defaults to `false`, but when set to `true` it will use the [`zjpane`](https://github.com/FuriouZz/zjpane) plugin to focus the editor pane instead of `focus-next-pane`. This is a much more reliable way to focus the editor as it doesn't depend on the editor being the exact next pane after the picker, and allows layouts such as the floating layout. In the future, this might become the default. In order for the plugin to work, you'll need to grant it permissions to access your zellij panes.
 1. `ZIDE_ALWAYS_NAME`: When set to `true`, it'll always use the basename of the current working directory as the name of a new Zellij zide session or tab. Equivalent to always using the `-N` flag.
 1. `ZIDE_USE_YAZI_CONFIG` (defaults to `true`): When using `yazi` as a file picker, this will point it to the `yazi/yazi.toml` included with this project instead of using the default config. This config comes with the `auto-layout.yazi` plugin that will automatically set the number of columns based on the available width. If you want to continue using your standard `yazi` config, you have two options:
    1. Use your global `yazi` config by setting this env var to `false`
