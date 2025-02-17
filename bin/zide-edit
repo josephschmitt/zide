@@ -65,7 +65,7 @@ path=${escaped_paths[0]}
 # Focus editor pane
 # Uses zjpane plugin to focus the editor
 if [[ "${ZIDE_USE_FOCUS_PLUGIN:-false}" == "true" ]]; then
-  zellij pipe --plugin "https://github.com/FuriouZz/zjpane/releases/download/v0.2.0/zjpane.wasm" -- "zjpane::focus::editor"
+  zellij pipe "zjpane::focus::editor"
 else
   # Must be the next pane after the picker
   zellij action focus-next-pane

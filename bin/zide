@@ -115,6 +115,10 @@ if [[ "${name}" == "__basename__" ]]; then
   name="$(basename ${cwd})"
 fi
 
+if [[ "${ZIDE_USE_FOCUS_PLUGIN:-false}" == "true" ]]; then
+  zellij plugin -- "https://github.com/FuriouZz/zjpane/releases/download/v0.2.0/zjpane.wasm"
+fi
+
 # Export location of the zide project files for further use
 export ZIDE_FILE_PICKER=${picker:-${ZIDE_FILE_PICKER}}
 export ZIDE_CURRENT_LAYOUT="${layout}"
