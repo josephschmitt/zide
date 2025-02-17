@@ -84,7 +84,7 @@ The following layouts can all be found in the [`layouts/`](./layouts) directory 
 
 By default starting `zide` will use a layout consisting of 2 vertical split of panes with a filepicker on the left occupying a small slice of it, and your editor on the right occupying the rest, with your current working directory set as the directory in both your editor and the filepicker.
 
-If you add one more pane, you'll have the choice between two swap layouts: "compact" and "wide". These map to the old (now deprecated) `compact` and `wide` layouts, but all contained in a single super layout using swap layouts.
+If you add one more pane, you'll have the choice between two swap layouts: "compact" and "wide". The "compact" layout will set the new pane below the editor, while the "wide" layout will set it to the right. Adding a 4th pane will split these panes in half, vertically for "compact", and horizontally for "wide".
 
 #### `tall`
 
