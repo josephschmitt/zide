@@ -86,21 +86,6 @@ By default starting `zide` will use a layout consisting of 2 vertical split of p
 
 If you add one more pane, you'll have the choice between two swap layouts: "compact" and "wide". These map to the old (now deprecated) `compact` and `wide` layouts, but all contained in a single super layout using swap layouts.
 
-#### `compact` (Deprecated)
-
-This is the old default layout without the new swap layouts. Starts with the same layout as the new default, but without the option to swap to wide.
-<p align="center">
-  <img alt="Compact layout" src="https://github.com/user-attachments/assets/62f09161-eb0a-4584-a174-8a2f3ad640c3" width=45% />
-  <img alt="Compact layout with an extra shell pane splitting the editor pane" src="https://github.com/user-attachments/assets/f8584284-99ca-407d-a808-54e82f6a948c" width=45% />
-</p>
-
-#### `wide` (Deprecated)
-
-This is an old layout that has the same layout as the new "wide" swap layout. The `wide` layout has a 3rd, 80-column wide pane to the right.
-<p align="center">
-  <img alt="Wide layout showing 3 vertical columns" src="https://github.com/user-attachments/assets/4c4c3881-6855-4b66-81c0-f5b18d8869a5" width=85% />
-</p>
-
 #### `tall`
 
 The `tall` layout takes advantage of tall screens or windows and lays the panes out horizontally, with the picker occupying the top of the layout in a narrow view, and the editor below. Due to zide's new-found config switching, if you use `yazi` or `lf` as your file picker, this layout will automatically switch to a 3-pane view.
@@ -149,13 +134,12 @@ This project provides customization via the use of environment variables:
 1. `ZIDE_DEFAULT_LAYOUT`: Default layout. Available layouts can be found in the zide `layouts/` directory. Feel free to add some layouts of your own here (they're gitignore'd).
 1. `ZIDE_FILE_PICKER`: The file picker command to use, defaults to `yazi` if none is set.
 1. `ZIDE_ALWAYS_NAME`: When set to `true`, it'll always use the basename of the current working directory as the name of a new Zellij zide session or tab. Equivalent to always using the `-N` flag.
-1. `ZIDE_USE_YAZI_CONFIG`: When using `yazi` as a file picker, this will point it to the `yazi/yazi.toml` included with this project instead of using the default config. This config sets `yazi`'s ratio so that it operates in a single pane mode, which is more similar to how IDE's work. If you want to continue using your standard `yazi` config, set this env var to `false` (defaults to `true`). Alternatively, if you want to point to a different custom config directory, set this env var to that value.
-   Additionally, you can conditionally load specific config files based on the layout you're in by appending `:<layout>` to your path and declaring multiple paths.
-   ```sh
-   export ZIDE_USE_YAZI_CONFIG="$HOME/.config/yazi-3p:stacked $HOME/.config/yazi-1p"
-   ```
-   In the above setup, it'll load the `yazi-3p` config directory when using the `stacked` layout to display a 3-pane layout in Yazi, otherwise load the standard 1-pane config. Make sure the "default" value that should match any layout is the last one in the list and has no `:<layout>` declared.
-1. `ZIDE_USE_LF_CONFIG`: Same idea as `ZIDE_USE_YAZI_CONFIG`, but for `lf` as the picker. This project includes a basic custom config to run `lf` in single pane mode, which you can turn off by setting this env var to `false`. Or, if you want to point it to your own config to use with zide, set the env var to that value. This env var also supports layout-based configs like Yazi does above.
+1. `ZIDE_USE_YAZI_CONFIG` (defaults to `true`): When using `yazi` as a file picker, this will point it to the `yazi/yazi.toml` included with this project instead of using the default config. This config comes with the `auto-layout.yazi` plugin that will automatically set the number of columns based on the available width. If you want to continue using your standard `yazi` config, you have two options:
+   1. Use your global `yazi` config by setting this env var to `false`
+   1. Use a custom config just with zide by pointing this env var to a custom config directory. If you have a custom file at `my/custom-config/yazi/yazi.toml`, then you would set `ZIDE_USE_YAZI_CONFIG=my/custom-config/yazi`.
+1. `ZIDE_USE_LF_CONFIG` (defaults to `true`): Same idea as `ZIDE_USE_YAZI_CONFIG`, but for `lf` as the picker. Much like the custom `yazi` config, this config includes logic to automatically change the number of columns based on the available width. If you want to customize this config, you have the same two options as `yazi` above:
+   1. Use your global `lf` config by setting this env var to `false`.
+   1. Use a custom config just with zide by pointing this env var to a custom config directory. Note that the directory here should be the directory the `lf` config lives inside of, not the `lf` directory itself. So if you have a file at `my/custom-config/lf/lfrc` with your config, then you should set `ZIDE_USE_LF_CONFIG=my/custom-config`.
 
 ### File Picker Configurations
 
@@ -176,20 +160,38 @@ show-hidden = true
 export ZIDE_USE_YAZI_CONFIG="$HOME/.config/yazi-custom"
 ```
 
-This will use that config when running in zide, but not when running `yazi` normally.
+This will use that config when running in zide, but not when running `yazi` normally. If you want to retain the auto-layout logic, you'll have to add the `yazi/plugins/auto-layout.yazi` plugin to your config's `plugins/` directory, and then add `require("auto-layout")` to your `init.lua`.
+
+```lua
+# ~/.config/yazi-custom/init.lua
+require("auto-layout")
+````
 
 #### [lf](https://github.com/gokcehan/lf)
 
-When using zide with `lf`, you'll probably want to start it in single column mode. Similarly to Yazi above, zide comes with a simple config file it points to when using `lf` that turns this on by default called `ZIDE_USE_LF_CONFIG`. Similarly, set it to `false` to disable it, or give it a value to point it to a config outside of this project.
+If you're using `lf` and want to use a custom config other than your default and the one included in this project, you can point to a custom config directory in the `ZIDE_USE_LF_CONFIG` var.
 
 ```env
 # ~/.config/custom-configs/lf/lfrc
-set preview false
-set ratios 1
+set hidden true
 ```
 
 ```sh
 export ZIDE_USE_LF_CONFIG="~/.config/custom-configs"
+```
+
+To retain the auto-layout logic, you'll need to integrate with the `on-redraw` cmd like we do in the custom config by adding this to your `lfrc`:
+
+```env
+cmd on-redraw %{{
+    if [ $lf_width -le 40 ]; then
+        lf -remote "send $id set ratios 1"
+    elif [ $lf_width -le 80 ]; then
+        lf -remote "send $id set ratios 1:1"
+    else
+        lf -remote "send $id set ratios 1:1:2"
+    fi
+}}
 ```
 
 ## How it works
