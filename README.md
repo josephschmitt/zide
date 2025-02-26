@@ -136,6 +136,7 @@ You can make any type of layout you like and use any and all of Zellij's awesome
 This project provides customization via the use of environment variables:
 
 1. `ZIDE_DEFAULT_LAYOUT`: Default layout. Available layouts can be found in the zide `layouts/` directory. Feel free to add some layouts of your own here (they're gitignore'd).
+1. `ZIDE_LAYOUT_DIR`: Optionally point to a different directory that contains your layouts. Defaults to the `layouts/` directory in this project.
 1. `ZIDE_FILE_PICKER`: The file picker command to use, defaults to `yazi` if none is set.
 1. `ZIDE_USE_FOCUS_PLUGIN`: Defaults to `false`, but when set to `true` it will use the [`zjpane`](https://github.com/FuriouZz/zjpane) plugin to focus the editor pane instead of `focus-next-pane`. This is a much more reliable way to focus the editor as it doesn't depend on the editor being the exact next pane after the picker, and allows layouts such as the floating layout. In the future, this might become the default. In order for the plugin to work, you'll need to grant it permissions to access your zellij panes.
 1. `ZIDE_ALWAYS_NAME`: When set to `true`, it'll always use the basename of the current working directory as the name of a new Zellij zide session or tab. Equivalent to always using the `-N` flag.

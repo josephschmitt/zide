@@ -120,10 +120,11 @@ export ZIDE_FILE_PICKER=${picker:-${ZIDE_FILE_PICKER}}
 export ZIDE_CURRENT_LAYOUT="${layout}"
 export ZIDE_ORIGINAL_EDITOR="${EDITOR}"
 export ZIDE_TAB_NAME="${name}"
+export ZIDE_LAYOUT_DIR="${ZIDE_LAYOUT_DIR:-${ZIDE_DIR}/layouts}"
 
-layout_path="$ZIDE_DIR/layouts/$layout"
+layout_path="${ZIDE_LAYOUT_DIR}/${layout}"
 if [ -n "$ZELLIJ" ]; then
-  zellij action new-tab --cwd $cwd --layout "$layout_path"
+  zellij action new-tab --cwd $cwd --layout "${layout_path}"
   zide-rename
 else
   # There's a bug when using zellij options --default-cwd where the CWD isn't working for floating
