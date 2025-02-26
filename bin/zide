@@ -115,7 +115,6 @@ if [[ "${name}" == "__basename__" ]]; then
   name="$(basename ${cwd})"
 fi
 
-set +u # These env vars are all optional ways to configure Zide, so might not be set
 # Export location of the zide project files for further use
 export ZIDE_FILE_PICKER=${picker:-${ZIDE_FILE_PICKER}}
 export ZIDE_CURRENT_LAYOUT="${layout}"
@@ -134,4 +133,3 @@ else
     zellij --layout "${layout_path}"
   popd > /dev/null
 fi
-set -u
